@@ -1,0 +1,493 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>Multiple Code Redux Parser</title>
+    <meta name="description" content="A simple parser to allow people to more easily use Multiple Code Redux." />
+    <meta http-equiv="content-language" content="EN" />
+    <style type="text/css">
+        /* CSS IMPLANT HOOK */
+    </style>
+    <script type="text/javascript">
+        // JS IMPLANT HOOK
+    </script>
+</head>
+<body>
+    <div id="description">
+        <h1>Cloud's Multiple Code Redux Parser</h1>
+        <p>The MCR Parser is a simple app designed to parse and encode Multiple Code Redux, which is used to share lots of information about plural systems easily and concisely. It's a great system but unfortunately it's really difficult to learn, so we wrote a parser for other people to use so you don't have to go through a reference book every time. From a technical perspective, it's just a huge amount of regex. Currently, species, worlds, co-conciousness, spirituality, metaphysical, and availability have not been implemented due to complexity. This will change in the future.</p>
+    </div>
+    <div id="parser">
+        <div name="input">
+            <input type="text" name="parser-input" id="parser-input" placeholder="Paste a Multiple Code Redux code here and hit enter to decode it" spellcheck="false" onchange="parseCode()" />
+        </div>
+        <button name="parser-button" id="parser-button" class="run-button" onclick="parse()">Parse MCR Code!</button>
+        <div class="output" name="parser-output" id="parser-output">
+            No Code Parsed Yet
+        </div>
+    </div>
+    <div id="generator">
+        <div class="output" name="generator-output" ,="" id="generator-output" onclick="generate(); copy()">
+            Click here to generate and copy a code.
+        </div>
+        <button name="generator-button" id="generator-button" class="run-button" onclick="generate()">Generate an MCR Code!</button>
+        <div name="generator-settings" ,="" id="generator-settings">
+            <div class="row">
+                <div class="column">
+                    Number of members in the system:
+                    <div class="generator-selection" name="generator-membercount" id="generator-membercount">
+                        <input name="gmc" type="radio" value="unspecified" checked="" />Do Not Specify
+                        <br />
+                        <input name="gmc" type="radio" value="N---" />1
+                        <br />
+                        <input name="gmc" type="radio" value="N--" />2-5
+                        <br />
+                        <input name="gmc" type="radio" value="N-" />6-10
+                        <br />
+                        <input name="gmc" type="radio" value="N" />11-20
+                        <br />
+                        <input name="gmc" type="radio" value="N+" />21-50
+                        <br />
+                        <input name="gmc" type="radio" value="N++" />51-80
+                        <br />
+                        <input name="gmc" type="radio" value="N+++" />81-100
+                        <br />
+                        <input name="gmc" type="radio" value="N++++" />101-500
+                        <br />
+                        <input name="gmc" type="radio" value="N++++!" />501-1000
+                        <br />
+                        <input name="gmc" type="radio" value="N++++!!" />&gt;1000
+                        <br />
+                        <input name="gmc" type="radio" value="N?" />Unknown
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Presentation:
+                    <div class="generator-selection" name="generator-presentation" id="generator-presentation">
+                        <input name="gp" type="checkbox" value="f" />Female
+                        <br />
+                        <input name="gp" type="checkbox" value="m" />Male
+                        <br />
+                        <input name="gp" type="checkbox" value="n" />Neutral
+                        <br />
+                        <input name="gp" type="checkbox" value="nb" />Non-Binary
+                        <br />
+                        <input name="gp" type="checkbox" value="a" />Agender
+                        <br />
+                        <input name="gp" type="checkbox" value="i" />Intersex
+                        <br />
+                        <input name="gp" type="checkbox" value="b" />Bigender
+                        <br />
+                        <input name="gp" type="checkbox" value="t" />Third Gender
+                        <br />
+                        <input name="gp" type="checkbox" value="gf" />Genderfluid
+                        <br />
+                        <input name="gp" type="checkbox" value="gq" />Genderqueer
+                        <br />
+                        <input name="gp" type="checkbox" value="x" />Gender Questioning
+                        <br />
+                        <input name="gp" type="checkbox" value="g" />Gay
+                        <br />
+                        <input name="gp" type="checkbox" value="l" />Lesbian
+                        <br />
+                        <input name="gp" type="checkbox" value="b" />Bisexual
+                        <br />
+                        <input name="gp" type="checkbox" value="p" />Pansexual
+                        <br />
+                        <input name="gp" type="checkbox" value="qr" />Queer
+                        <br />
+                        <input name="gp" type="checkbox" value="ar" />Aromantic
+                        <br />
+                        <input name="gp" type="checkbox" value="as" />Asexual
+                        <br />
+                        <input name="gp" type="checkbox" value="xo" />Questioning Orientation
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Body Age:
+                    <div class="generator-selection" name="generator-bodyage" id="generator-bodyage">
+                        <input name="gba" type="radio" value="unspecified" checked="" />Do Not Specify
+                        <br />
+                        <input name="gba" type="radio" value="b---!" />0-4yrs
+                        <br />
+                        <input name="gba" type="radio" value="b---" />5-10yrs
+                        <br />
+                        <input name="gba" type="radio" value="b--" />11-15yrs
+                        <br />
+                        <input name="gba" type="radio" value="b-" />16-18yrs
+                        <br />
+                        <input name="gba" type="radio" value="b" />19-35yrs
+                        <br />
+                        <input name="gba" type="radio" value="b+" />36-55yrs
+                        <br />
+                        <input name="gba" type="radio" value="b++" />56-90yrs
+                        <br />
+                        <input name="gba" type="radio" value="b+++" />91-100yrs
+                        <br />
+                        <input name="gba" type="radio" value="b+++!" />101-1000yrs
+                        <br />
+                        <input name="gba" type="radio" value="b+++!!" />&gt;1000yrs
+                        <br />
+                        <input name="gba" type="radio" value="b^" />Ageless
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Youngest Member Age:
+                    <div class="generator-selection" name="generator-yma" id="generator-yma">
+                        <input name="gyma" type="radio" value="unspecified" checked="" />Do Not Specify
+                        <br />
+                        <input name="gyma" type="radio" value="r---!" />0-4yrs
+                        <br />
+                        <input name="gyma" type="radio" value="r---" />5-10yrs
+                        <br />
+                        <input name="gyma" type="radio" value="r--" />11-15yrs
+                        <br />
+                        <input name="gyma" type="radio" value="r-" />16-18yrs
+                        <br />
+                        <input name="gyma" type="radio" value="r" />19-35yrs
+                        <br />
+                        <input name="gyma" type="radio" value="r+" />36-55yrs
+                        <br />
+                        <input name="gyma" type="radio" value="r++" />56-90yrs
+                        <br />
+                        <input name="gyma" type="radio" value="r+++" />91-100yrs
+                        <br />
+                        <input name="gyma" type="radio" value="r+++!" />101-1000yrs
+                        <br />
+                        <input name="gyma" type="radio" value="r+++!!" />&gt;1000yrs
+                        <br />
+                        <input name="gyma" type="radio" value="r^" />Ageless
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    Oldest Member Age:
+                    <div class="generator-selection" name="generator-oma" id="generator-oma">
+                        <input name="goma" type="radio" value="unspecified" checked="" />Do Not Specify
+                        <br />
+                        <input name="goma" type="radio" value="---!" />0-4yrs
+                        <br />
+                        <input name="goma" type="radio" value="---" />5-10yrs
+                        <br />
+                        <input name="goma" type="radio" value="--" />11-15yrs
+                        <br />
+                        <input name="goma" type="radio" value="-" />16-18yrs
+                        <br />
+                        <input name="goma" type="radio" value="" />19-35yrs
+                        <br />
+                        <input name="goma" type="radio" value="+" />36-55yrs
+                        <br />
+                        <input name="goma" type="radio" value="++" />56-90yrs
+                        <br />
+                        <input name="goma" type="radio" value="+++" />91-100yrs
+                        <br />
+                        <input name="goma" type="radio" value="+++!" />101-1000yrs
+                        <br />
+                        <input name="goma" type="radio" value="+++!!" />&gt;1000yrs
+                        <br />
+                        <input name="goma" type="radio" value="^" />Ageless
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Origins:
+                    <div class="generator-selection" name="generator-origins" id="generator-origins">
+                        <input name="go" type="checkbox" value="t" />Traumagenic
+                        <br />
+                        <input name="go" type="checkbox" value="e" />Endogenic
+                        <br />
+                        <input name="go" type="checkbox" value="p" />Protogenic
+                        <br />
+                        <input name="go" type="checkbox" value="r" />Pariogenic
+                        <br />
+                        <input name="go" type="checkbox" value="pa" />Parogenic
+                        <br />
+                        <input name="go" type="checkbox" value="n" />Neurogenic
+                        <br />
+                        <input name="go" type="checkbox" value="m" />Multigenic
+                        <br />
+                        <input name="go" type="checkbox" value="q" />Quoigenic
+                        <br />
+                        <input name="go" type="checkbox" value="pr" />Praesigenic
+                        <br />
+                        <input name="go" type="checkbox" value="mt" />Metagenic
+                        <br />
+                        <input name="go" type="checkbox" value="x" />Xenogenic
+                        <br />
+                        <input name="go" type="checkbox" value="a" />Agenic
+                        <br />
+                        <input name="go" type="checkbox" value="ad" />Adaptive
+                        <br />
+                        <input name="go" type="checkbox" value="c" />Created
+                        <br />
+                        <input name="go" type="checkbox" value="s" />Spontaneous
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Modifiers:
+                    <div class="generator-selection" name="generator-modifiers" id="generator-modifiers">
+                        <input name="gm" type="checkbox" value="pg" />Polyfragmented
+                        <br />
+                        <input name="gm" type="checkbox" value="pf" />Polyfaceted
+                        <br />
+                        <input name="gm" type="checkbox" value="pm" />Polymultiple
+                        <br />
+                        <input name="gm" type="checkbox" value="g" />Gateway
+                        <br />
+                        <input name="gm" type="checkbox" value="d" />Dreamway
+                        <br />
+                        <input name="gm" type="checkbox" value="p" />Pyrotien
+                        <br />
+                        <input name="gm" type="checkbox" value="ph" />Phytotien
+                        <br />
+                        <input name="gm" type="checkbox" value="a" />Aerotien
+                        <br />
+                        <input name="gm" type="checkbox" value="q" />Aquatien
+                        <br />
+                        <input name="gm" type="checkbox" value="b" />Bombotien
+                        <br />
+                        <input name="gm" type="checkbox" value="c" />Cryotien
+                        <br />
+                        <input name="gm" type="checkbox" value="k" />Kinetien
+                        <br />
+                        <input name="gm" type="checkbox" value="o" />Orbital
+                        <br />
+                        <input name="gm" type="checkbox" value="l" />Layered
+                        <br />
+                        <input name="gm" type="checkbox" value="s" />Subsystems
+                        <br />
+                        <input name="gm" type="checkbox" value="ps" />Parallel
+                        <br />
+                        <input name="gm" type="checkbox" value="sb" />Soulbonds
+                        <br />
+                        <input name="gm" type="checkbox" value="t" />Thoughtforms
+                        <br />
+                        <input name="gm" type="checkbox" value="m" />Mixed
+                        <br />
+                        <input name="gm" type="checkbox" value="ds" />Disordered
+                        <br />
+                        <input name="gm" type="checkbox" value="nd" />Non-disordered
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Real Life Outness Factor:
+                    <div class="generator-selection" name="generator-rof" id="generator-rof">
+                        <input name="grof" type="radio" value="unspecified" checked="" />Do Not Specify
+                        <br />
+                        <input name="grof" type="radio" value="r+++" />Explicit
+                        <br />
+                        <input name="grof" type="radio" value="r++" />Not Hidden
+                        <br />
+                        <input name="grof" type="radio" value="r+" />Open
+                        <br />
+                        <input name="grof" type="radio" value="r" />Friends
+                        <br />
+                        <input name="grof" type="radio" value="r-" />Close Friends
+                        <br />
+                        <input name="grof" type="radio" value="r--" />Deny
+                        <br />
+                        <input name="grof" type="radio" value="r---" />Secret
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    Online Outness Factor:
+                    <div class="generator-selection" name="generator-oof" id="generator-oof">
+                        <input name="goof" type="radio" value="unspecified" checked="" />Do Not Specify
+                        <br />
+                        <input name="goof" type="radio" value="o+++" />Explicit
+                        <br />
+                        <input name="goof" type="radio" value="o++" />Not Hidden
+                        <br />
+                        <input name="goof" type="radio" value="o+" />Open
+                        <br />
+                        <input name="goof" type="radio" value="o" />Friends
+                        <br />
+                        <input name="goof" type="radio" value="o-" />Close Friends
+                        <br />
+                        <input name="goof" type="radio" value="o--" />Deny
+                        <br />
+                        <input name="goof" type="radio" value="o---" />Secret
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Intra-System Relationships:
+                    <div class="generator-selection" name="generator-relationships" id="generator-relationships">
+                        <input name="gr" type="checkbox" value="f" />Familial
+                        <br />
+                        <input name="gr" type="checkbox" value="p" />Platonic
+                        <br />
+                        <input name="gr" type="checkbox" value="qp" />Queerplatonic
+                        <br />
+                        <input name="gr" type="checkbox" value="w" />Wavership
+                        <br />
+                        <input name="gr" type="checkbox" value="q" />Quadrant-based
+                        <br />
+                        <input name="gr" type="checkbox" value="r" />Romantic
+                        <br />
+                        <input name="gr" type="checkbox" value="m" />Mentorship
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Member Orientations:
+                    <div class="generator-selection" name="generator-orientations" id="generator-orientations">
+                        <input name="gmo" type="checkbox" value="g" />Gay
+                        <br />
+                        <input name="gmo" type="checkbox" value="l" />Lesbian
+                        <br />
+                        <input name="gmo" type="checkbox" value="bi" />Bisexual
+                        <br />
+                        <input name="gmo" type="checkbox" value="p" />Pansexual
+                        <br />
+                        <input name="gmo" type="checkbox" value="ar" />Aromantic
+                        <br />
+                        <input name="gmo" type="checkbox" value="as" />Asexual
+                        <br />
+                        <input name="gmo" type="checkbox" value="h" />Heterosexual
+                        <br />
+                        <input name="gmo" type="checkbox" value="q" />Queer
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Member Genders:
+                    <div class="generator-selection" name="generator-genders" id="generator-genders">
+                        <input name="gmg" type="checkbox" value="f" />Female
+                        <br />
+                        <input name="gmg" type="checkbox" value="m" />Male
+                        <br />
+                        <input name="gmg" type="checkbox" value="n" />Neutral
+                        <br />
+                        <input name="gmg" type="checkbox" value="nb" />Non-binary
+                        <br />
+                        <input name="gmg" type="checkbox" value="a" />Agender
+                        <br />
+                        <input name="gmg" type="checkbox" value="b" />Bigender
+                        <br />
+                        <input name="gmg" type="checkbox" value="t" />Third Gender
+                        <br />
+                        <input name="gmg" type="checkbox" value="gf" />Genderfluid
+                        <br />
+                        <input name="gmg" type="checkbox" value="gq" />Genderqueer
+                        <br />
+                        <input name="gmg" type="checkbox" value="x" />Gender Questioning
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    Outer Life (Job):
+                    <div class="generator-selection" name="generator-jobs" id="generator-jobs">
+                        <input name="gol" type="checkbox" value="pa" />Performing Arts
+                        <br />
+                        <input name="gol" type="checkbox" value="a" />Visual Arts
+                        <br />
+                        <input name="gol" type="checkbox" value="c" />Computer Science
+                        <br />
+                        <input name="gol" type="checkbox" value="ch" />Child Care
+                        <br />
+                        <input name="gol" type="checkbox" value="cr" />Retail
+                        <br />
+                        <input name="gol" type="checkbox" value="s" />Social Work
+                        <br />
+                        <input name="gol" type="checkbox" value="ed" />Education
+                        <br />
+                        <input name="gol" type="checkbox" value="en" />Engineering
+                        <br />
+                        <input name="gol" type="checkbox" value="sci" />Science
+                        <br />
+                        <input name="gol" type="checkbox" value="pro" />Professional
+                        <br />
+                        <input name="gol" type="checkbox" value="wr" />Writer
+                        <br />
+                        <input name="gol" type="checkbox" value="x" />Unemployed (Disabled)
+                        <br />
+                        <input name="gol" type="checkbox" value="u" />Unemployed
+                        <br />
+                        <input name="gol" type="checkbox" value="us" />Unemployed (Student)
+                        <br />
+                        <input name="gol" type="checkbox" value="st" />Student
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Social (Real Life):
+                    <div class="generator-selection" name="generator-sr" id="generator-sr">
+                        <input name="gsr" type="radio" value="unspecified" checked="" />Do Not Specify
+                        <br />
+                        <input name="gsr" type="radio" value="r+++" />Very Extroverted
+                        <br />
+                        <input name="gsr" type="radio" value="r++" />Extroverted
+                        <br />
+                        <input name="gsr" type="radio" value="r+" />Slightly Extroverted
+                        <br />
+                        <input name="gsr" type="radio" value="r" />Slightly Introverted
+                        <br />
+                        <input name="gsr" type="radio" value="r-" />Introverted
+                        <br />
+                        <input name="gsr" type="radio" value="r--" />Introverted (partner or roomate only)
+                        <br />
+                        <input name="gsr" type="radio" value="r---" />Very Introverted
+                        <br />
+                        <input name="gsr" type="radio" value="r----" />Antisocial
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Social (Online):
+                    <div class="generator-selection" name="generator-so" id="generator-so">
+                        <input name="gso" type="radio" value="unspecified" checked="" />Do Not Specify
+                        <br />
+                        <input name="gso" type="radio" value="o+++" />Very Extroverted
+                        <br />
+                        <input name="gso" type="radio" value="o++" />Extroverted
+                        <br />
+                        <input name="gso" type="radio" value="o+" />Slightly Extroverted
+                        <br />
+                        <input name="gso" type="radio" value="o" />Slightly Introverted
+                        <br />
+                        <input name="gso" type="radio" value="o-" />Introverted
+                        <br />
+                        <input name="gso" type="radio" value="o--" />Introverted (partner or roomate only)
+                        <br />
+                        <input name="gso" type="radio" value="o---" />Very Introverted
+                        <br />
+                        <input name="gso" type="radio" value="o----" />Antisocial
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
+                    Roleplaying:
+                    <div class="generator-selection" name="generator-rp" id="generator-rp">
+                        <input name="grp" type="radio" value="unspecified" checked="" />Do Not Specify
+                        <br />
+                        <input name="grp" type="radio" value="R++" />Major Interest
+                        <br />
+                        <input name="grp" type="radio" value="R+" />Interest
+                        <br />
+                        <input name="grp" type="radio" value="R" />Minor Dislike
+                        <br />
+                        <input name="grp" type="radio" value="R-" />Dislike
+                        <br />
+                        <input name="grp" type="radio" value="R--" />No Interest
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

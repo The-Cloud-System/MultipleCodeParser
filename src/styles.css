@@ -1,0 +1,70 @@
+#parser-input {
+    background-color: #CCC;
+    color: #000;
+    width: 99%;
+    height: 1.25em;
+    resize: none
+}
+
+.run-button {
+    background-color: #946c00;
+    padding: 1em;
+    margin: 1em
+}
+
+.output {
+    color: #000;
+    width: 95%;
+    text-align: center;
+    margin: 1em;
+    background-color: #CCC
+}
+
+#parser-output {
+    height: 13.25em
+}
+
+#generator-output {
+    height: 1.25em
+}
+
+body {
+    background-color: #363636;
+    padding: 1em
+}
+
+div {
+    background-color: #444;
+    margin: 1em;
+    color: #CCC;
+    padding: 1em
+}
+
+#description {
+    background-color: #CCC;
+    color: #000
+}
+
+.column {
+    background-color: #CCC;
+    color: #000;
+    float: left;
+    width: 19%
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both
+}
+
+@media screen and (max-width: 750px) {
+    .column {
+        width: 100%
+    }
+}
+
+.generator-selection {
+    background-color: #CCC;
+    color: #000
+}
