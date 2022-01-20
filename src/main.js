@@ -437,6 +437,55 @@ function parse() {
 		parsed = parsed.replace(/, ([^,]*)$/, "");
 	}
 	parsed += "<br>";
+	rgx = code.match(/(?<=C\().*?(?=\))/);
+	if (rgx === null) {
+		parsed += "Co-Conciousness: Unspecified";
+	} else {
+		parsed += "Co-Conciousness: ";
+		rgx[0].split("/").forEach(opt => {
+			opt = opt.trim();
+			if (opt.includes("cc")) {
+				switch (opt) {
+					case "cc++":
+						parsed += "Excellent Communication";
+						break;
+					case "cc+":
+						parsed += "Very Good Communication";
+						break;
+					case "cc":
+						parsed += "Average Communication";
+						break;
+					case "cc-":
+						parsed += "Minimal Communication";
+						break;
+					case "cc--":
+						parsed += "No Communication";
+						break;
+				}
+				parsed += "; ";
+			} else {
+				switch (opt) {
+					case "m++":
+						parsed += "Fully Shared Memories";
+						break;
+					case "m+":
+						parsed += "Mostly Shared Memories";
+						break;
+					case "m":
+						parsed += "Partially Shared Memories";
+						break;
+					case "m-":
+						parsed += "Minimally Shared Memories";
+						break;
+					case "m--":
+						parsed += "No Shared Memories";
+						break;
+				}
+			}
+		});
+		parsed = parsed.replace(/; *$/, "");
+	}
+	parsed += "<br>";
 	rgx = code.match(/(?<=OF\().*(?=\))/);
 	if (rgx === null) {
 		parsed += "Outness: Unspecified";
@@ -790,6 +839,8 @@ function generate() {
 	const oma = document.querySelector('#generator-oma').querySelector('input:checked');
 	const o = document.querySelector('#generator-origins').querySelectorAll('input:checked');
 	const m = document.querySelector('#generator-modifiers').querySelectorAll('input:checked');
+	const ccc = document.querySelector('#generator-ccc').querySelector('input:checked');
+	const mcc = document.querySelector('#generator-mcc').querySelector('input:checked');
 	const rof = document.querySelector('#generator-rof').querySelector('input:checked');
 	const oof = document.querySelector('#generator-oof').querySelector('input:checked');
 	const rel = document.querySelector('#generator-relationships').querySelectorAll('input:checked');
@@ -842,6 +893,15 @@ function generate() {
 			code += opt.value + "/";
 		});
 		code = code.replace(/\/$/, "");
+	}
+	if (ccc.value !== "unspecified") {
+		code += " " + "C(" + ccc.value;
+	}
+	if (mcc.value !== "unspecified") {
+		if (ccc.value === "unspecified") {
+			code += " " + "C(";
+		}
+		code += "/" + mcc.value + ")";
 	}
 	if (rof.value !== "unspecified") {
 		code += " " + "OF(" + rof.value;

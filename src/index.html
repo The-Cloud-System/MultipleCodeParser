@@ -16,11 +16,11 @@
 <body>
     <div id="description">
         <h1>Cloud's Multiple Code Redux Parser</h1>
-        <p>The MCR Parser is a simple app designed to parse and encode Multiple Code Redux, which is used to share lots of information about plural systems easily and concisely. It's a great system but unfortunately it's really difficult to learn, so we wrote a parser for other people to use so you don't have to go through a reference book every time. From a technical perspective, it's just a huge amount of regex. Currently, species, worlds, co-conciousness, spirituality, metaphysical, and availability have not been implemented due to complexity. This will change in the future.</p>
+        <p>The MCR Parser is a simple app designed to parse and encode Multiple Code Redux, which is used to share lots of information about plural systems easily and concisely. It's a great system but unfortunately it's really difficult to learn, so we wrote a parser for other people to use so you don't have to go through a reference book every time. From a technical perspective, it's just a huge amount of regex. Currently, the species, worlds, spirituality, metaphysical, and availability flags as well as flag modifiers have not been implemented due to complexity. This will change in the future.</p>
     </div>
     <div id="parser">
         <div name="input">
-            <input type="text" name="parser-input" id="parser-input" placeholder="Paste a Multiple Code Redux code here and hit enter to decode it" spellcheck="false" onchange="parseCode()" />
+            <input type="text" name="parser-input" id="parser-input" placeholder="Paste a Multiple Code Redux code here and hit enter to decode it" spellcheck="false" onchange="parse()" />
         </div>
         <button name="parser-button" id="parser-button" class="run-button" onclick="parse()">Parse MCR Code!</button>
         <div class="output" name="parser-output" id="parser-output">
@@ -278,6 +278,42 @@
                     </div>
                 </div>
                 <div class="column">
+                    Co-Conciousness - Communication:
+                    <div class="generator-selection" name="generator-ccc" id="generator-ccc">
+                        <input name="gccc" type="radio" value="unspecified" checked="" />Do Not Specify
+                        <br />
+                        <input name="gccc" type="radio" value="cc++" />Excellent Communication
+                        <br />
+                        <input name="gccc" type="radio" value="cc+" />Very Good Communication
+                        <br />
+                        <input name="gccc" type="radio" value="cc" />Average Communication
+                        <br />
+                        <input name="gccc" type="radio" value="cc-" />Minimal Communication
+                        <br />
+                        <input name="gccc" type="radio" value="cc--" />No Communication
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    Co-Conciousness - Memory Sharing
+                    <div class="generator-selection" name="generator-mcc" id="generator-mcc">
+                        <input name="gmcc" type="radio" value="unspecified" checked="" />Do Not Specify
+                        <br />
+                        <input name="gmcc" type="radio" value="m++" />Fully Shared Memories
+                        <br />
+                        <input name="gmcc" type="radio" value="m+" />Mostly Shared Memories
+                        <br />
+                        <input name="gmcc" type="radio" value="m" />Partially Shared Memories
+                        <br />
+                        <input name="gmcc" type="radio" value="m-" />Minimally Shared Memories
+                        <br />
+                        <input name="gmcc" type="radio" value="m--" />No Shared Memories
+                        <br />
+                    </div>
+                </div>
+                <div class="column">
                     Real Life Outness Factor:
                     <div class="generator-selection" name="generator-rof" id="generator-rof">
                         <input name="grof" type="radio" value="unspecified" checked="" />Do Not Specify
@@ -298,8 +334,6 @@
                         <br />
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="column">
                     Online Outness Factor:
                     <div class="generator-selection" name="generator-oof" id="generator-oof">
@@ -340,6 +374,8 @@
                         <br />
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="column">
                     Member Orientations:
                     <div class="generator-selection" name="generator-orientations" id="generator-orientations">
@@ -386,8 +422,6 @@
                         <br />
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="column">
                     Outer Life (Job):
                     <div class="generator-selection" name="generator-jobs" id="generator-jobs">
@@ -446,6 +480,8 @@
                         <br />
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="column">
                     Social (Online):
                     <div class="generator-selection" name="generator-so" id="generator-so">
