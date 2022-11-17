@@ -1,5 +1,5 @@
 String.prototype.toTitleCase = function () {
-	return this.replace(/\w\S*/g, function(txt) {
+	return this.replace(/\w\S*/g, function (txt) {
 		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
 	});
 };
@@ -14,289 +14,289 @@ function selectText() {
 
 function copy() {
 	selectText();
-	document.execCommand("copy");
-	alert("Copied MCR Code to clipboard!");
+	document.execCommand('copy');
+	alert('Copied MCR Code to clipboard!');
 }
 
 function parse() {
 	const input = document.querySelector('#parser-input');
 	const output = document.querySelector('#parser-output');
 	const code = input.value;
-	var parsed = "";
+	var parsed = '';
 	var rgx;
 	rgx = code.match(/N[+\-!]*/);
 	if (rgx === null) {
-		parsed += "Member Count: Unspecified";
+		parsed += 'Member Count: Unspecified';
 	} else {
-		parsed += "Member Count: ";
+		parsed += 'Member Count: ';
 		switch (rgx[0]) {
 			case 'N---':
-				parsed += "1";
+				parsed += '1';
 				break;
 			case 'N--':
-				parsed += "2-5";
+				parsed += '2-5';
 				break;
 			case 'N-':
-				parsed += "6-10";
+				parsed += '6-10';
 				break;
 			case 'N':
-				parsed += "11-20";
+				parsed += '11-20';
 				break;
 			case 'N+':
-				parsed += "21-50";
+				parsed += '21-50';
 				break;
 			case 'N++':
-				parsed += "51-80";
+				parsed += '51-80';
 				break;
 			case 'N+++':
-				parsed += "81-100";
+				parsed += '81-100';
 				break;
 			case 'N++++':
-				parsed += "101-500";
+				parsed += '101-500';
 				break;
 			case 'N++++!':
-				parsed += "501-1000";
+				parsed += '501-1000';
 				break;
 			case 'N++++!!':
-				parsed += ">1000";
+				parsed += '>1000';
 				break;
 			case 'N?':
-				parsed += "Unknown";
+				parsed += 'Unknown';
 				break;
 		}
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/(?<=P\[).*(?=\])/);
 	if (rgx === null) {
-		parsed += "Presentation: Unspecified";
+		parsed += 'Presentation: Unspecified';
 	} else {
-		parsed += "Presentation: ";
-		rgx[0].split("/").forEach(opt => {
+		parsed += 'Presentation: ';
+		rgx[0].split('/').forEach((opt) => {
 			opt = opt.trim();
 			if (opt.includes('o"')) {
 				const tmp = opt.match(/(?<=o").*(?=")/)[0];
-				parsed += tmp.toTitleCase() + ", ";
+				parsed += tmp.toTitleCase() + ', ';
 			} else {
 				switch (opt) {
 					case 'f':
-						parsed += "Female, ";
+						parsed += 'Female, ';
 						break;
 					case 'm':
-						parsed += "Male, ";
+						parsed += 'Male, ';
 						break;
 					case 'n':
-						parsed += "Neutral, ";
+						parsed += 'Neutral, ';
 						break;
 					case 'nb':
-						parsed += "Non-Binary, ";
+						parsed += 'Non-Binary, ';
 						break;
 					case 'a':
-						parsed += "Agender, ";
+						parsed += 'Agender, ';
 						break;
 					case 'i':
-						parsed += "Intersex, ";
+						parsed += 'Intersex, ';
 						break;
 					case 'b':
-						parsed += "Bigender, ";
+						parsed += 'Bigender, ';
 						break;
 					case 't':
-						parsed += "Third Gender, ";
+						parsed += 'Third Gender, ';
 						break;
 					case 'gf':
-						parsed += "Genderfluid, ";
+						parsed += 'Genderfluid, ';
 						break;
 					case 'gq':
-						parsed += "Genderqueer, ";
+						parsed += 'Genderqueer, ';
 						break;
 					case 'x':
-						parsed += "Gender Questioning, ";
+						parsed += 'Gender Questioning, ';
 						break;
 					case 'g':
-						parsed += "Gay, ";
+						parsed += 'Gay, ';
 						break;
 					case 'l':
-						parsed += "Lesbian, ";
+						parsed += 'Lesbian, ';
 						break;
 					case 'bi':
-						parsed += "Bisexual, ";
+						parsed += 'Bisexual, ';
 						break;
 					case 'p':
-						parsed += "Pansexual, ";
+						parsed += 'Pansexual, ';
 						break;
 					case 'qr':
-						parsed += "Queer, ";
+						parsed += 'Queer, ';
 						break;
 					case 'ar':
-						parsed += "Aromantic, ";
+						parsed += 'Aromantic, ';
 						break;
 					case 'as':
-						parsed += "Asexual, ";
+						parsed += 'Asexual, ';
 						break;
 					case 'xo':
-						parsed += "Questioning Orientation, ";
+						parsed += 'Questioning Orientation, ';
 						break;
 					case 'o':
-						parsed += "Other, ";
+						parsed += 'Other, ';
 						break;
 				}
 			}
 		});
-		parsed = parsed.replace(/, ([^,]*)$/, "");
+		parsed = parsed.replace(/, ([^,]*)$/, '');
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/(?<=A\().*?(?=\))/);
 	if (rgx === null) {
-		parsed += "Age: Unspecified";
+		parsed += 'Age: Unspecified';
 	} else {
-		parsed += "Age: ";
-		rgx[0].split(" ").forEach(opt => {
-			if (opt != "") {
-				if (opt.includes("b")) {
+		parsed += 'Age: ';
+		rgx[0].split(' ').forEach((opt) => {
+			if (opt != '') {
+				if (opt.includes('b')) {
 					switch (opt) {
-						case "b---!":
-							parsed += "0-4yrs (Body)";
+						case 'b---!':
+							parsed += '0-4yrs (Body)';
 							break;
-						case "b---":
-							parsed += "5-10yrs (Body)";
+						case 'b---':
+							parsed += '5-10yrs (Body)';
 							break;
-						case "b--":
-							parsed += "11-15yrs (Body)";
+						case 'b--':
+							parsed += '11-15yrs (Body)';
 							break;
-						case "b-":
-							parsed += "16-18yrs (Body)";
+						case 'b-':
+							parsed += '16-18yrs (Body)';
 							break;
-						case "b":
-							parsed += "19-35yrs (Body)";
+						case 'b':
+							parsed += '19-35yrs (Body)';
 							break;
-						case "b+":
-							parsed += "36-55yrs (Body)";
+						case 'b+':
+							parsed += '36-55yrs (Body)';
 							break;
-						case "b++":
-							parsed += "56-90yrs (Body)";
+						case 'b++':
+							parsed += '56-90yrs (Body)';
 							break;
-						case "b+++":
-							parsed += "91-100yrs (Body)";
+						case 'b+++':
+							parsed += '91-100yrs (Body)';
 							break;
-						case "b+++!":
-							parsed += "101-1000yrs (Body)";
+						case 'b+++!':
+							parsed += '101-1000yrs (Body)';
 							break;
-						case "b+++!!" || "b+++!!!":
-							parsed += ">1000yrs (Body)";
+						case 'b+++!!' || 'b+++!!!':
+							parsed += '>1000yrs (Body)';
 							break;
-						case "b^":
-							parsed += "Ageless (Body)";
+						case 'b^':
+							parsed += 'Ageless (Body)';
 							break;
 					}
-					parsed += "; ";
+					parsed += '; ';
 				} else {
-					opt = opt.replace(/r/, "");
-					opt = opt.replace(/\)/, "");
-					if (opt.includes("/")) {
-						opt = opt.split("/");
+					opt = opt.replace(/r/, '');
+					opt = opt.replace(/\)/, '');
+					if (opt.includes('/')) {
+						opt = opt.split('/');
 						switch (opt[0]) {
-							case "---!":
-								parsed += "0-";
+							case '---!':
+								parsed += '0-';
 								break;
-							case "---":
-								parsed += "5-";
+							case '---':
+								parsed += '5-';
 								break;
-							case "--":
-								parsed += "11-";
+							case '--':
+								parsed += '11-';
 								break;
-							case "-":
-								parsed += "16-";
+							case '-':
+								parsed += '16-';
 								break;
-							case "":
-								parsed += "19-";
+							case '.':
+								parsed += '19-';
 								break;
-							case "+":
-								parsed += "36-";
+							case '+':
+								parsed += '36-';
 								break;
-							case "++":
-								parsed += "56-";
+							case '++':
+								parsed += '56-';
 								break;
-							case "+++":
-								parsed += "91-";
+							case '+++':
+								parsed += '91-';
 								break;
-							case "+++!":
-								parsed += "101-";
+							case '+++!':
+								parsed += '101-';
 								break;
-							case "+++!!" || "+++!!!":
-								parsed += ">1000yrs-";
+							case '+++!!' || '+++!!!':
+								parsed += '>1000yrs-';
 								break;
-							case "^":
-								parsed += "Ageless-";
+							case '^':
+								parsed += 'Ageless-';
 								break;
 						}
 						switch (opt[1]) {
-							case "---!":
-								parsed += "4yrs (Members)";
+							case '---!':
+								parsed += '4yrs (Members)';
 								break;
-							case "---":
-								parsed += "10yrs (Members)";
+							case '---':
+								parsed += '10yrs (Members)';
 								break;
-							case "--":
-								parsed += "15yrs (Members)";
+							case '--':
+								parsed += '15yrs (Members)';
 								break;
-							case "-":
-								parsed += "18yrs (Members)";
+							case '-':
+								parsed += '18yrs (Members)';
 								break;
-							case "":
-								parsed += "35yrs (Members)";
+							case '.':
+								parsed += '35yrs (Members)';
 								break;
-							case "+":
-								parsed += "55yrs (Members)";
+							case '+':
+								parsed += '55yrs (Members)';
 								break;
-							case "++":
-								parsed += "90yrs (Members)";
+							case '++':
+								parsed += '90yrs (Members)';
 								break;
-							case "+++":
-								parsed += "100yrs (Members)";
+							case '+++':
+								parsed += '100yrs (Members)';
 								break;
-							case "+++!":
-								parsed += "1000yrs (Members)";
+							case '+++!':
+								parsed += '1000yrs (Members)';
 								break;
-							case "+++!!" || "+++!!!":
-								parsed += ">1000yrs (Members)";
+							case '+++!!' || '+++!!!':
+								parsed += '>1000yrs (Members)';
 								break;
-							case "^":
-								parsed += "Ageless (Members)";
+							case '^':
+								parsed += 'Ageless (Members)';
 								break;
 						}
 					} else {
 						switch (opt) {
-							case "---!":
-								parsed += "0-4yrs (Members)";
+							case '---!':
+								parsed += '0-4yrs (Members)';
 								break;
-							case "---":
-								parsed += "5-10yrs (Members)";
+							case '---':
+								parsed += '5-10yrs (Members)';
 								break;
-							case "--":
-								parsed += "11-15yrs (Members)";
+							case '--':
+								parsed += '11-15yrs (Members)';
 								break;
-							case "-":
-								parsed += "16-18yrs (Members)";
+							case '-':
+								parsed += '16-18yrs (Members)';
 								break;
-							case "":
-								parsed += "19-35yrs (Members)";
+							case '':
+								parsed += '19-35yrs (Members)';
 								break;
-							case "+":
-								parsed += "36-55yrs (Members)";
+							case '+':
+								parsed += '36-55yrs (Members)';
 								break;
-							case "++":
-								parsed += "56-90yrs (Members)";
+							case '++':
+								parsed += '56-90yrs (Members)';
 								break;
-							case "+++":
-								parsed += "91-100yrs (Members)";
+							case '+++':
+								parsed += '91-100yrs (Members)';
 								break;
-							case "+++!":
-								parsed += "101-1000yrs (Members)";
+							case '+++!':
+								parsed += '101-1000yrs (Members)';
 								break;
-							case "+++!!" || "b+++!!!":
-								parsed += ">1000yrs (Members)";
+							case '+++!!' || 'b+++!!!':
+								parsed += '>1000yrs (Members)';
 								break;
-							case "^":
-								parsed += "Ageless (Members)";
+							case '^':
+								parsed += 'Ageless (Members)';
 								break;
 						}
 					}
@@ -304,526 +304,526 @@ function parse() {
 			}
 		});
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/(?<=O)\S*/);
 	if (rgx === null) {
-		parsed += "Origins: Unspecified";
+		parsed += 'Origins: Unspecified';
 	} else {
-		parsed += "Origins: ";
-		rgx[0].split("/").forEach(opt => {
+		parsed += 'Origins: ';
+		rgx[0].split('/').forEach((opt) => {
 			switch (opt) {
 				case 't':
-					parsed += "Traumagenic, ";
+					parsed += 'Traumagenic, ';
 					break;
 				case 'e':
-					parsed += "Endogenic, ";
+					parsed += 'Endogenic, ';
 					break;
 				case 'p':
-					parsed += "Protogenic, ";
+					parsed += 'Protogenic, ';
 					break;
 				case 'r':
-					parsed += "Pariogenic, ";
+					parsed += 'Pariogenic, ';
 					break;
 				case 'pa':
-					parsed += "Parogenic, ";
+					parsed += 'Parogenic, ';
 					break;
 				case 'n':
-					parsed += "Neurogenic, ";
+					parsed += 'Neurogenic, ';
 					break;
 				case 'm':
-					parsed += "Multigenic, ";
+					parsed += 'Multigenic, ';
 					break;
 				case 'q':
-					parsed += "Quoigenic, ";
+					parsed += 'Quoigenic, ';
 					break;
 				case 'pr':
-					parsed += "Praesigenic, ";
+					parsed += 'Praesigenic, ';
 					break;
 				case 'mt':
-					parsed += "Metagenic, ";
+					parsed += 'Metagenic, ';
 					break;
 				case 'x':
-					parsed += "Xenogenic, ";
+					parsed += 'Xenogenic, ';
 					break;
 				case 'a':
-					parsed += "Agenic, ";
+					parsed += 'Agenic, ';
 					break;
 				case 'ad':
-					parsed += "Adaptive, ";
+					parsed += 'Adaptive, ';
 					break;
 				case 'c':
-					parsed += "Created, ";
+					parsed += 'Created, ';
 					break;
 				case 's':
-					parsed += "Spontaneous, ";
+					parsed += 'Spontaneous, ';
 					break;
 			}
 		});
-		parsed = parsed.replace(/, ([^,]*)$/, "");
+		parsed = parsed.replace(/, ([^,]*)$/, '');
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/(?<=M(?!uC))\S*/);
 	if (rgx === null) {
-		parsed += "Modifiers: Unspecified";
+		parsed += 'Modifiers: Unspecified';
 	} else {
-		parsed += "Modifiers: ";
-		rgx[0].split("/").forEach(opt => {
+		parsed += 'Modifiers: ';
+		rgx[0].split('/').forEach((opt) => {
 			switch (opt) {
 				case 'pg':
-					parsed += "Polyfragmented, ";
+					parsed += 'Polyfragmented, ';
 					break;
 				case 'pf':
-					parsed += "Polyfaceted, ";
+					parsed += 'Polyfaceted, ';
 					break;
 				case 'pm':
-					parsed += "Polymultiple, ";
+					parsed += 'Polymultiple, ';
 					break;
 				case 'g':
-					parsed += "Gateway, ";
+					parsed += 'Gateway, ';
 					break;
 				case 'd':
-					parsed += "Dreamway, ";
+					parsed += 'Dreamway, ';
 					break;
 				case 'p':
-					parsed += "Pyrotien, ";
+					parsed += 'Pyrotien, ';
 					break;
 				case 'ph':
-					parsed += "Phytotien, ";
+					parsed += 'Phytotien, ';
 					break;
 				case 'a':
-					parsed += "Aerotien, ";
+					parsed += 'Aerotien, ';
 					break;
 				case 'q':
-					parsed += "Aquatien, ";
+					parsed += 'Aquatien, ';
 					break;
 				case 'b':
-					parsed += "Bombotien, ";
+					parsed += 'Bombotien, ';
 					break;
 				case 'c':
-					parsed += "Cryotien, ";
+					parsed += 'Cryotien, ';
 					break;
 				case 'k':
-					parsed += "Kinetien, ";
+					parsed += 'Kinetien, ';
 					break;
 				case 'o':
-					parsed += "Orbital, ";
+					parsed += 'Orbital, ';
 					break;
 				case 'l':
-					parsed += "Layered, ";
+					parsed += 'Layered, ';
 					break;
 				case 's':
-					parsed += "Subsystems, ";
+					parsed += 'Subsystems, ';
 					break;
 				case 'ps':
-					parsed += "Parallel, ";
+					parsed += 'Parallel, ';
 					break;
 				case 'sb':
-					parsed += "Soulbonds, ";
+					parsed += 'Soulbonds, ';
 					break;
 				case 't':
-					parsed += "Thoughtforms, ";
+					parsed += 'Thoughtforms, ';
 					break;
 				case 'm':
-					parsed += "Mixed, ";
+					parsed += 'Mixed, ';
 					break;
 				case 'ds':
-					parsed += "Disordered, ";
+					parsed += 'Disordered, ';
 					break;
 				case 'nd':
-					parsed += "Non-disordered, ";
+					parsed += 'Non-disordered, ';
 					break;
 			}
 		});
-		parsed = parsed.replace(/, ([^,]*)$/, "");
+		parsed = parsed.replace(/, ([^,]*)$/, '');
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/(?<=C\().*?(?=\))/);
 	if (rgx === null) {
-		parsed += "Co-Conciousness: Unspecified";
+		parsed += 'Co-Conciousness: Unspecified';
 	} else {
-		parsed += "Co-Conciousness: ";
-		rgx[0].split("/").forEach(opt => {
+		parsed += 'Co-Conciousness: ';
+		rgx[0].split('/').forEach((opt) => {
 			opt = opt.trim();
-			if (opt.includes("cc")) {
+			if (opt.includes('cc')) {
 				switch (opt) {
-					case "cc++":
-						parsed += "Excellent Communication";
+					case 'cc++':
+						parsed += 'Excellent Communication';
 						break;
-					case "cc+":
-						parsed += "Very Good Communication";
+					case 'cc+':
+						parsed += 'Very Good Communication';
 						break;
-					case "cc":
-						parsed += "Average Communication";
+					case 'cc':
+						parsed += 'Average Communication';
 						break;
-					case "cc-":
-						parsed += "Minimal Communication";
+					case 'cc-':
+						parsed += 'Minimal Communication';
 						break;
-					case "cc--":
-						parsed += "No Communication";
+					case 'cc--':
+						parsed += 'No Communication';
 						break;
 				}
-				parsed += "; ";
+				parsed += '; ';
 			} else {
 				switch (opt) {
-					case "m++":
-						parsed += "Fully Shared Memories";
+					case 'm++':
+						parsed += 'Fully Shared Memories';
 						break;
-					case "m+":
-						parsed += "Mostly Shared Memories";
+					case 'm+':
+						parsed += 'Mostly Shared Memories';
 						break;
-					case "m":
-						parsed += "Partially Shared Memories";
+					case 'm':
+						parsed += 'Partially Shared Memories';
 						break;
-					case "m-":
-						parsed += "Minimally Shared Memories";
+					case 'm-':
+						parsed += 'Minimally Shared Memories';
 						break;
-					case "m--":
-						parsed += "No Shared Memories";
+					case 'm--':
+						parsed += 'No Shared Memories';
 						break;
 				}
 			}
 		});
-		parsed = parsed.replace(/; *$/, "");
+		parsed = parsed.replace(/; *$/, '');
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/(?<=OF\().*(?=\))/);
 	if (rgx === null) {
-		parsed += "Outness: Unspecified";
+		parsed += 'Outness: Unspecified';
 	} else {
-		parsed += "Outness: ";
-		rgx[0].split("/").forEach(opt => {
+		parsed += 'Outness: ';
+		rgx[0].split('/').forEach((opt) => {
 			opt = opt.trim();
-			if (opt.includes("r")) {
+			if (opt.includes('r')) {
 				switch (opt) {
-					case "r+++":
-						parsed += "Explicit (Real World)";
+					case 'r+++':
+						parsed += 'Explicit (Real World)';
 						break;
-					case "r++":
-						parsed += "Not Hidden (Real World)";
+					case 'r++':
+						parsed += 'Not Hidden (Real World)';
 						break;
-					case "r+":
-						parsed += "Open (Real World)";
+					case 'r+':
+						parsed += 'Open (Real World)';
 						break;
-					case "r":
-						parsed += "Friends (Real World)";
+					case 'r':
+						parsed += 'Friends (Real World)';
 						break;
-					case "r-":
-						parsed += "Close Friends (Real World)";
+					case 'r-':
+						parsed += 'Close Friends (Real World)';
 						break;
-					case "r--":
-						parsed += "Deny (Real World)";
+					case 'r--':
+						parsed += 'Deny (Real World)';
 						break;
-					case "r---":
-						parsed += "Secret (Real World)";
+					case 'r---':
+						parsed += 'Secret (Real World)';
 						break;
 				}
-				parsed += "; ";
+				parsed += '; ';
 			} else {
 				switch (opt) {
-					case "o+++":
-						parsed += "Explicit (Online)";
+					case 'o+++':
+						parsed += 'Explicit (Online)';
 						break;
-					case "o++":
-						parsed += "Not Hidden (Online)";
+					case 'o++':
+						parsed += 'Not Hidden (Online)';
 						break;
-					case "o+":
-						parsed += "Open (Online)";
+					case 'o+':
+						parsed += 'Open (Online)';
 						break;
-					case "o":
-						parsed += "Friends (Online)";
+					case 'o':
+						parsed += 'Friends (Online)';
 						break;
-					case "o-":
-						parsed += "Close Friends (Online)";
+					case 'o-':
+						parsed += 'Close Friends (Online)';
 						break;
-					case "o--":
-						parsed += "Deny (Online)";
+					case 'o--':
+						parsed += 'Deny (Online)';
 						break;
-					case "o---":
-						parsed += "Secret (Online)";
+					case 'o---':
+						parsed += 'Secret (Online)';
 						break;
 				}
 			}
 		});
-		parsed = parsed.replace(/; *$/, "");
+		parsed = parsed.replace(/; *$/, '');
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/(?<=R)\S*/);
 	if (rgx === null) {
-		parsed += "Relationships: Unspecified";
+		parsed += 'Relationships: Unspecified';
 	} else {
-		parsed += "Relationships: ";
-		rgx[0].split("/").forEach(opt => {
+		parsed += 'Relationships: ';
+		rgx[0].split('/').forEach((opt) => {
 			switch (opt) {
 				case 'f':
-					parsed += "Familial, ";
+					parsed += 'Familial, ';
 					break;
 				case 'p':
-					parsed += "Platonic, ";
+					parsed += 'Platonic, ';
 					break;
 				case 'qp':
-					parsed += "Queerplatonic, ";
+					parsed += 'Queerplatonic, ';
 					break;
 				case 'w':
-					parsed += "Wavership, ";
+					parsed += 'Wavership, ';
 					break;
 				case 'q':
-					parsed += "Quadrant-based, ";
+					parsed += 'Quadrant-based, ';
 					break;
 				case 'r':
-					parsed += "Romantic, ";
+					parsed += 'Romantic, ';
 					break;
 				case 'm':
-					parsed += "Mentorship, ";
+					parsed += 'Mentorship, ';
 					break;
 			}
 		});
-		parsed = parsed.replace(/, ([^,]*)$/, "");
+		parsed = parsed.replace(/, ([^,]*)$/, '');
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/(?<=X)\S*/);
 	if (rgx === null) {
-		parsed += "Orientations: Unspecified";
+		parsed += 'Orientations: Unspecified';
 	} else {
-		parsed += "Orientations: ";
-		rgx[0].split("/").forEach(opt => {
+		parsed += 'Orientations: ';
+		rgx[0].split('/').forEach((opt) => {
 			if (opt.includes('o"')) {
 				const tmp = opt.match(/(?<=o").*(?=")/)[0];
-				parsed += tmp.toTitleCase() + ", ";
+				parsed += tmp.toTitleCase() + ', ';
 			} else {
 				switch (opt) {
 					case 'g':
-						parsed += "Gay, ";
+						parsed += 'Gay, ';
 						break;
 					case 'l':
-						parsed += "Lesbian, ";
+						parsed += 'Lesbian, ';
 						break;
 					case 'b':
-						parsed += "Bisexual, ";
+						parsed += 'Bisexual, ';
 						break;
 					case 'p':
-						parsed += "Pansexual, ";
+						parsed += 'Pansexual, ';
 						break;
 					case 'ar':
-						parsed += "Aromantic, ";
+						parsed += 'Aromantic, ';
 						break;
 					case 'as':
-						parsed += "Asexual, ";
+						parsed += 'Asexual, ';
 						break;
 					case 'h':
-						parsed += "Heterosexual, ";
+						parsed += 'Heterosexual, ';
 						break;
 					case 'q':
-						parsed += "Queer, ";
+						parsed += 'Queer, ';
 						break;
 					case 'o':
-						parsed += "Other, ";
+						parsed += 'Other, ';
 						break;
 				}
 			}
 		});
-		parsed = parsed.replace(/, ([^,]*)$/, "");
+		parsed = parsed.replace(/, ([^,]*)$/, '');
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/(?<=G)\S*/);
 	if (rgx === null) {
-		parsed += "Genders: Unspecified";
+		parsed += 'Genders: Unspecified';
 	} else {
-		parsed += "Genders: ";
-		rgx[0].split("/").forEach(opt => {
+		parsed += 'Genders: ';
+		rgx[0].split('/').forEach((opt) => {
 			if (opt.includes('o"')) {
 				const tmp = opt.match(/(?<=o").*(?=")/)[0];
-				parsed += tmp.toTitleCase() + ", ";
+				parsed += tmp.toTitleCase() + ', ';
 			} else {
 				switch (opt) {
 					case 'f':
-						parsed += "Female, ";
+						parsed += 'Female, ';
 						break;
 					case 'm':
-						parsed += "Male, ";
+						parsed += 'Male, ';
 						break;
 					case 'n':
-						parsed += "Neutral, ";
+						parsed += 'Neutral, ';
 						break;
 					case 'nb':
-						parsed += "Non-Binary, ";
+						parsed += 'Non-Binary, ';
 						break;
 					case 'a':
-						parsed += "Agender, ";
+						parsed += 'Agender, ';
 						break;
 					case 'b':
-						parsed += "Bigender, ";
+						parsed += 'Bigender, ';
 						break;
 					case 't':
-						parsed += "Third Gender, ";
+						parsed += 'Third Gender, ';
 						break;
 					case 'gf':
-						parsed += "Genderfluid, ";
+						parsed += 'Genderfluid, ';
 						break;
 					case 'gq':
-						parsed += "Genderqueer, ";
+						parsed += 'Genderqueer, ';
 						break;
 					case 'x':
-						parsed += "Gender Questioning, ";
+						parsed += 'Gender Questioning, ';
 						break;
 					case 'o':
-						parsed += "Other, ";
+						parsed += 'Other, ';
 						break;
 				}
 			}
 		});
-		parsed = parsed.replace(/, ([^,]*)$/, "");
+		parsed = parsed.replace(/, ([^,]*)$/, '');
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/(?<=J)\S*/);
 	if (rgx === null) {
-		parsed += "Outer Life: Unspecified";
+		parsed += 'Outer Life: Unspecified';
 	} else {
-		parsed += "Outer Life: ";
-		rgx[0].split("/").forEach(opt => {
+		parsed += 'Outer Life: ';
+		rgx[0].split('/').forEach((opt) => {
 			if (opt.includes('o"')) {
 				const tmp = opt.match(/(?<=o").*(?=")/)[0];
-				parsed += tmp.toTitleCase() + ", ";
+				parsed += tmp.toTitleCase() + ', ';
 			} else {
 				switch (opt) {
 					case 'pa':
-						parsed += "Performing Arts, ";
+						parsed += 'Performing Arts, ';
 						break;
 					case 'a':
-						parsed += "Visual Arts, ";
+						parsed += 'Visual Arts, ';
 						break;
 					case 'c':
-						parsed += "Computer Science, ";
+						parsed += 'Computer Science, ';
 						break;
 					case 'ch':
-						parsed += "Child Care, ";
+						parsed += 'Child Care, ';
 						break;
 					case 'cr':
-						parsed += "Retail, ";
+						parsed += 'Retail, ';
 						break;
 					case 's':
-						parsed += "Social Work, ";
+						parsed += 'Social Work, ';
 						break;
 					case 'ed':
-						parsed += "Education, ";
+						parsed += 'Education, ';
 						break;
 					case 'en':
-						parsed += "Engineering, ";
+						parsed += 'Engineering, ';
 						break;
 					case 'sci':
-						parsed += "Science, ";
+						parsed += 'Science, ';
 						break;
 					case 'pro':
-						parsed += "Professional, ";
+						parsed += 'Professional, ';
 						break;
 					case 'wr':
-						parsed += "Writer, ";
+						parsed += 'Writer, ';
 						break;
 					case 'x':
-						parsed += "Unemployed (Disabled), ";
+						parsed += 'Unemployed (Disabled), ';
 						break;
 					case 'u':
-						parsed += "Unemployed, ";
+						parsed += 'Unemployed, ';
 						break;
 					case 'us':
-						parsed += "Unemployed (Student), ";
+						parsed += 'Unemployed (Student), ';
 						break;
 					case 'st':
-						parsed += "Student, ";
+						parsed += 'Student, ';
 						break;
 					case 'o':
-						parsed += "Other, ";
+						parsed += 'Other, ';
 						break;
 				}
 			}
 		});
-		parsed = parsed.replace(/, ([^,]*)$/, "");
+		parsed = parsed.replace(/, ([^,]*)$/, '');
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/(?<=(?<=\s)S(?!\.))\S*/);
 	if (rgx === null) {
-		parsed += "Social: Unspecified";
+		parsed += 'Social: Unspecified';
 	} else {
-		parsed += "Social: ";
-		rgx[0].split("/").forEach(opt => {
-			if (opt.includes("r")) {
+		parsed += 'Social: ';
+		rgx[0].split('/').forEach((opt) => {
+			if (opt.includes('r')) {
 				switch (opt) {
-					case "r+++":
-						parsed += "Very Extroverted (Real World)";
+					case 'r+++':
+						parsed += 'Very Extroverted (Real World)';
 						break;
-					case "r++":
-						parsed += "Extroverted (Real World)";
+					case 'r++':
+						parsed += 'Extroverted (Real World)';
 						break;
-					case "r+":
-						parsed += "Slightly Extroverted (Real World)";
+					case 'r+':
+						parsed += 'Slightly Extroverted (Real World)';
 						break;
-					case "r":
-						parsed += "Slightly Introverted (Real World)";
+					case 'r':
+						parsed += 'Slightly Introverted (Real World)';
 						break;
-					case "r-":
-						parsed += "Introverted (Real World)";
+					case 'r-':
+						parsed += 'Introverted (Real World)';
 						break;
-					case "r--":
-						parsed += "Introverted (partner or roomate only) (Real World)";
+					case 'r--':
+						parsed += 'Introverted (partner or roomate only) (Real World)';
 						break;
-					case "r---":
-						parsed += "Very Introverted (Real World)";
+					case 'r---':
+						parsed += 'Very Introverted (Real World)';
 						break;
-					case "r----":
-						parsed += "Antisocial (Real World)";
+					case 'r----':
+						parsed += 'Antisocial (Real World)';
 						break;
 				}
-				parsed += "; ";
+				parsed += '; ';
 			} else {
 				switch (opt) {
-					case "o+++":
-						parsed += "Very Extroverted (Online)";
+					case 'o+++':
+						parsed += 'Very Extroverted (Online)';
 						break;
-					case "o++":
-						parsed += "Extroverted (Online)";
+					case 'o++':
+						parsed += 'Extroverted (Online)';
 						break;
-					case "o+":
-						parsed += "Slightly Extroverted (Online)";
+					case 'o+':
+						parsed += 'Slightly Extroverted (Online)';
 						break;
-					case "o":
-						parsed += "Slightly Introverted (Online)";
+					case 'o':
+						parsed += 'Slightly Introverted (Online)';
 						break;
-					case "o-":
-						parsed += "Introverted (Online)";
+					case 'o-':
+						parsed += 'Introverted (Online)';
 						break;
-					case "o--":
-						parsed += "Introverted (partner or roomate only) (Online)";
+					case 'o--':
+						parsed += 'Introverted (partner or roomate only) (Online)';
 						break;
-					case "o---":
-						parsed += "Very Introverted (Online)";
+					case 'o---':
+						parsed += 'Very Introverted (Online)';
 						break;
-					case "o----":
-						parsed += "Antisocial (Online)";
+					case 'o----':
+						parsed += 'Antisocial (Online)';
 						break;
 				}
 			}
 		});
 	}
-	parsed += "<br>";
+	parsed += '<br>';
 	rgx = code.match(/R[+\-!]*(?![^+\-!])/);
 	if (rgx === null) {
-		parsed += "Roleplaying: Unspecified";
+		parsed += 'Roleplaying: Unspecified';
 	} else {
-		parsed += "Roleplaying: ";
+		parsed += 'Roleplaying: ';
 		switch (rgx[0]) {
 			case 'R++':
-				parsed += "Major Interest";
+				parsed += 'Major Interest';
 				break;
 			case 'R+':
-				parsed += "Interest";
+				parsed += 'Interest';
 				break;
 			case 'R':
-				parsed += "Minor Dislike";
+				parsed += 'Minor Dislike';
 				break;
 			case 'R-':
-				parsed += "Dislike";
+				parsed += 'Dislike';
 				break;
 			case 'R--':
-				parsed += "No Interest";
+				parsed += 'No Interest';
 				break;
 		}
 	}
@@ -850,110 +850,110 @@ function generate() {
 	const sr = document.querySelector('#generator-sr').querySelector('input:checked');
 	const so = document.querySelector('#generator-so').querySelector('input:checked');
 	const rp = document.querySelector('#generator-rp').querySelector('input:checked');
-	var code = "";
-	if (mc.value !== "unspecified") {
+	var code = '';
+	if (mc.value !== 'unspecified') {
 		code += mc.value;
 	}
 	if (p.length > 0) {
-		code += " P[";
-		p.forEach(opt => {
-			code += opt.value + "/";
+		code += ' P[';
+		p.forEach((opt) => {
+			code += opt.value + '/';
 		});
-		code = code.replace(/\/$/, "");
-		code += "]";
+		code = code.replace(/\/$/, '');
+		code += ']';
 	}
-	if (ba.value !== "unspecified") {
-		code += " " + "A(" + ba.value;
+	if (ba.value !== 'unspecified') {
+		code += ' ' + 'A(' + ba.value;
 	}
-	if (yma.value !== "unspecified") {
-		if (ba.value === "unspecified") {
-			code += " " + "A(";
+	if (yma.value !== 'unspecified') {
+		if (ba.value === 'unspecified') {
+			code += ' ' + 'A(';
 		}
-		code += " " + yma.value;
+		code += ' ' + yma.value;
 	}
-	if (oma.value !== "unspecified") {
-		if (yma.value === "unspecified") {
-			code += " " + "A(";
+	if (oma.value !== 'unspecified') {
+		if (yma.value === 'unspecified') {
+			code += ' ' + 'A(';
 		}
-		code += "/" + oma.value + ")";
+		code += '/' + oma.value + ')';
 	}
-	if (oma.value === "unspecified" && ba.value !== "unspecified") {
-		code += ")";
+	if (oma.value === 'unspecified' && ba.value !== 'unspecified') {
+		code += ')';
 	}
 	if (o.length > 0) {
-		code += " O";
-		o.forEach(opt => {
-			code += opt.value + "/";
+		code += ' O';
+		o.forEach((opt) => {
+			code += opt.value + '/';
 		});
-		code = code.replace(/\/$/, "");
+		code = code.replace(/\/$/, '');
 	}
 	if (m.length > 0) {
-		code += " M";
-		m.forEach(opt => {
-			code += opt.value + "/";
+		code += ' M';
+		m.forEach((opt) => {
+			code += opt.value + '/';
 		});
-		code = code.replace(/\/$/, "");
+		code = code.replace(/\/$/, '');
 	}
-	if (ccc.value !== "unspecified") {
-		code += " " + "C(" + ccc.value;
+	if (ccc.value !== 'unspecified') {
+		code += ' ' + 'C(' + ccc.value;
 	}
-	if (mcc.value !== "unspecified") {
-		if (ccc.value === "unspecified") {
-			code += " " + "C(";
+	if (mcc.value !== 'unspecified') {
+		if (ccc.value === 'unspecified') {
+			code += ' ' + 'C(';
 		}
-		code += "/" + mcc.value + ")";
+		code += '/' + mcc.value + ')';
 	}
-	if (rof.value !== "unspecified") {
-		code += " " + "OF(" + rof.value;
+	if (rof.value !== 'unspecified') {
+		code += ' ' + 'OF(' + rof.value;
 	}
-	if (oma.value !== "unspecified") {
-		if (rof.value === "unspecified") {
-			code += " " + "OF(";
+	if (oma.value !== 'unspecified') {
+		if (rof.value === 'unspecified') {
+			code += ' ' + 'OF(';
 		}
-		code += "/" + oof.value + ")";
+		code += '/' + oof.value + ')';
 	}
-	if (oma.value === "unspecified" && rof.value !== "unspecified") {
-		code += ")";
+	if (oma.value === 'unspecified' && rof.value !== 'unspecified') {
+		code += ')';
 	}
 	if (rel.length > 0) {
-		code += " R";
-		rel.forEach(opt => {
-			code += opt.value + "/";
+		code += ' R';
+		rel.forEach((opt) => {
+			code += opt.value + '/';
 		});
-		code = code.replace(/\/$/, "");
+		code = code.replace(/\/$/, '');
 	}
 	if (or.length > 0) {
-		code += " X";
-		or.forEach(opt => {
-			code += opt.value + "/";
+		code += ' X';
+		or.forEach((opt) => {
+			code += opt.value + '/';
 		});
-		code = code.replace(/\/$/, "");
+		code = code.replace(/\/$/, '');
 	}
 	if (g.length > 0) {
-		code += " G";
-		g.forEach(opt => {
-			code += opt.value + "/";
+		code += ' G';
+		g.forEach((opt) => {
+			code += opt.value + '/';
 		});
-		code = code.replace(/\/$/, "");
+		code = code.replace(/\/$/, '');
 	}
 	if (ol.length > 0) {
-		code += " J";
-		ol.forEach(opt => {
-			code += opt.value + "/";
+		code += ' J';
+		ol.forEach((opt) => {
+			code += opt.value + '/';
 		});
-		code = code.replace(/\/$/, "");
+		code = code.replace(/\/$/, '');
 	}
-	if (sr.value !== "unspecified") {
-		code += " " + "S" + sr.value;
+	if (sr.value !== 'unspecified') {
+		code += ' ' + 'S' + sr.value;
 	}
-	if (so.value !== "unspecified") {
-		if (sr.value === "unspecified") {
-			code += " " + "S";
+	if (so.value !== 'unspecified') {
+		if (sr.value === 'unspecified') {
+			code += ' ' + 'S';
 		}
-		code += "/" + so.value;
+		code += '/' + so.value;
 	}
-	if (rp.value !== "unspecified") {
-		code += " " + rp.value;
+	if (rp.value !== 'unspecified') {
+		code += ' ' + rp.value;
 	}
 	output.innerHTML = code;
 }
